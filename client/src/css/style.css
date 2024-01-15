@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply m-0 bg-black text-white;
+}
+
+* {
+  @apply m-0 p-0 box-border font-Poppins;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+main {
+  height: calc(100vh - 80px);
+}
+
+.error {
+  @apply border-red-600;
+}
+
+.infoAlert {
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+  color: #fff;
+}
+
+.modAlert-success {
+  @apply bg-[#32ac34];
+}
+.modAlert-success .modAlert-loader {
+  @apply bg-[#2e9725];
+}
+.modAlert-default {
+  @apply bg-[#151515];
+}
+.modAlert-default .modAlert-loader {
+  @apply bg-[#222];
+}
+.modAlert-danger {
+  @apply bg-[#d42121];
+}
+.modAlert-danger .modAlert-loader {
+  @apply bg-[#ff9696];
+}
+
+.modAlert-loader {
+  @apply w-full h-[2px] mt-1.5 transition-all duration-300 ease-in-out;
+  animation: loadAlert 2s forwards;
+}
+
+@keyframes loadAlert {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+.field {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 7px;
+}
+.scroll::-webkit-scrollbar-track {
+  background: #222;
+  border-radius: 5px;
+}
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 5px;
+}
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: #353535;
+}

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Rush</title>
+  </head>
+  <body class="overflow-hidden">
+    <div
+      id="alert_overlay"
+      class="absolute top-0 left-0 z-[70] pointer-events-none w-full h-screen flex flex-col justify-start items-center"
+    ></div>
+    <main
+      class="flex flex-col justify-center items-center gap-10 w-full h-screen"
+    >
+      <img
+        src="./src/img/cr_bg.png"
+        alt=""
+        class="absolute top-0 left-0 w-screen h-screen object-cover"
+      />
+      <div
+        class="bg-black/50 backdrop-blur-lg p-10 lg:rounded-3xl w-full h-full lg:w-[500px] lg:h-[600px] lg:min-w-[500px] lg:min-h-[600px] lg:max-w-[500px] lg:max-h-[600px]"
+        id="main_wrapper"
+      >
+        <div
+          id="menu"
+          class="w-full h-full flex flex-col gap-5 items-center justify-start"
+        >
+          <img src="./src/img/color_rush.png" draggable="false" />
+          <div
+            class="w-full h-full flex flex-col gap-5 items-center justify-center"
+          >
+            <button
+              class="bg-black hover:bg-black/70 rounded-lg p-2 px-5 transition-all duration-300 outline-none min-w-[200px] flex items-center gap-3 text-lg"
+              id="c_lobby"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="20"
+                width="18"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+                  fill="white"
+                />
+              </svg>
+              Create Lobby
+            </button>
+            <button
+              class="bg-black hover:bg-black/70 rounded-lg p-2 px-5 transition-all duration-300 outline-none min-w-[200px] flex items-center gap-3 text-lg"
+              id="j_lobby"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="20"
+                width="20"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  d="M352 96l64 0c17.7 0 32 14.3 32 32l0 256c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0c53 0 96-43 96-96l0-256c0-53-43-96-96-96l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-9.4 182.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L242.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"
+                  fill="white"
+                />
+              </svg>
+              Join Lobby
+            </button>
+          </div>
+          <button
+            class="bg-black hover:bg-black/70 rounded-lg p-2 px-5 transition-all duration-300 outline-none min-w-[200px] flex items-center justify-center gap-3 text-lg"
+            id="tutorialBtn"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="22"
+              width="22"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
+                fill="white"
+              />
+            </svg>
+            Tutorial
+          </button>
+        </div>
+        <div
+          id="createLobby"
+          class="w-full h-full flex flex-col gap-5 items-center justify-start"
+          style="display: none"
+        >
+          <div class="flex justify-between items-center w-full">
+            <h2 class="text-2xl tracking-wide font-semibold">Create Lobby</h2>
+            <button
+              class="menu-back bg-black hover:bg-black/70 transition-all duration-300 outline-none rounded-lg p-2 px-10 flex items-center gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="26"
+                width="20"
+                viewBox="0 0 256 512"
+              >
+                <path
+                  d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"
+                  fill="white"
+                />
+              </svg>
+              Back
+            </button>
+          </div>
+          <div
+            class="flex flex-col justify-center items-center gap-5 w-full h-full"
+          >
+            <div
+              class="flex items-center justify-between w-full border-b-2 border-b-[#444] p-3"
+            >
+              <span class="text-md">Board size</span>
+              <select
+                id="boardSelect"
+                class="bg-black border border-[#222] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 w-28"
+              >
+                <option value="10">10x10</option>
+                <option value="15">15x15</option>
+                <option value="20">20x20</option>
+              </select>
+            </div>
+            <div
+              class="flex items-center justify-between w-full border-b-2 border-b-[#444] p-3"
+            >
+              <span class="text-md">Time (Minutes)</span>
+              <input
+                type="number"
+                value="2"
+                placeholder="..."
+                id="mins"
+                class="bg-black border border-[#222] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 w-28"
+              />
+            </div>
+            <div
+              class="flex items-center justify-between w-full border-b-2 border-b-[#444] p-3"
+            >
+              <span class="text-md">Player colors</span>
+              <div class="flex gap-2 items-center">
+                <input
+                  type="color"
+                  value="#ff0000"
+                  id="p1"
+                  class="bg-black border border-[#222] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-2.5"
+                />
+                <input
+                  type="color"
+                  value="#000fff"
+                  id="p2"
+                  class="bg-black border border-[#222] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-2.5"
+                />
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-between w-full border-b-2 border-b-[#444] p-3"
+            >
+              <span class="text-md">Invite link</span>
+              <input
+                type="text"
+                id="invLink"
+                class="bg-black border border-[#222] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 w-28"
+              />
+            </div>
+            <button
+              class="mt-auto bg-black hover:bg-black/70 transition-all duration-300 outline-none rounded-lg p-2 px-10 flex items-center justify-center gap-3 text-lg"
+              id="uploadLobby"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="20"
+                viewBox="0 0 640 512"
+              >
+                <path
+                  d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"
+                  fill="white"
+                />
+              </svg>
+              Create lobby
+            </button>
+            <button
+              class="mt-auto bg-black hover:bg-black/70 transition-all duration-300 outline-none rounded-lg p-2 px-10 flex items-center justify-center gap-3 text-lg"
+              id="startGame"
+              style="display: none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="20"
+                viewBox="0 0 640 512"
+              >
+                <path
+                  d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"
+                  fill="white"
+                />
+              </svg>
+              Start
+            </button>
+          </div>
+        </div>
+        <div
+          id="joinLobby"
+          class="w-full h-full flex flex-col gap-5 items-center justify-start"
+          style="display: none"
+        >
+          <div class="flex justify-between items-center w-full">
+            <h2 class="text-2xl tracking-wide font-semibold">Join Lobby</h2>
+            <button
+              class="menu-back bg-black hover:bg-black/70 transition-all duration-300 outline-none rounded-lg p-2 px-10 flex items-center gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="26"
+                width="20"
+                viewBox="0 0 256 512"
+              >
+                <path
+                  d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"
+                  fill="white"
+                />
+              </svg>
+              Back
+            </button>
+          </div>
+          <div
+            class="flex flex-col justify-center items-center gap-5 w-full h-full"
+          >
+            <label for="invLinkJoin">Enter Invite Link or Lobby ID:</label>
+            <input
+              type="text"
+              id="invLinkJoin"
+              placeholder="Invite link or Id"
+              class="bg-black border border-[#222] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 w-full"
+            />
+            <button
+              id="invLinkJoinBtn"
+              class="bg-black hover:bg-black/70 transition-all duration-300 outline-none rounded-lg p-2 px-10 flex items-center gap-4 text-xl"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                width="20"
+                viewBox="0 0 384 512"
+              >
+                <path
+                  d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
+                  fill="white"
+                />
+              </svg>
+              Join
+            </button>
+          </div>
+        </div>
+        <div
+          id="tutorial"
+          class="w-full h-full flex flex-col gap-5 items-center justify-start"
+          style="display: none"
+        >
+          <div class="flex justify-between items-center w-full">
+            <h2 class="text-2xl tracking-wide font-semibold">Tutorial</h2>
+            <button
+              class="menu-back bg-black hover:bg-black/70 transition-all duration-300 outline-none rounded-lg p-2 px-10 flex items-center gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="26"
+                width="20"
+                viewBox="0 0 256 512"
+              >
+                <path
+                  d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"
+                  fill="white"
+                />
+              </svg>
+              Back
+            </button>
+          </div>
+          <div class="flex gap-2">
+            <button
+              class="bg-black hover:bg-black/70 transition-all duration-300 outline-none rounded-lg p-2 px-10 flex items-center gap-2"
+              id="englishBtn"
+            >
+              <img src="./src/img/uk.svg" width="22" height="22" />
+              English
+            </button>
+            <button
+              class="bg-black hover:bg-black/70 transition-all duration-300 outline-none rounded-lg p-2 px-10 flex items-center gap-2"
+              id="germanBtn"
+            >
+              <img src="./src/img/de.svg" width="22" height="22" />
+              Deutsch
+            </button>
+          </div>
+          <div class="w-full h-[400px]" id="english">
+            <div
+              class="flex flex-col justify-start items-center gap-5 w-full h-full scroll text-center"
+            >
+              <h1 class="text-blue-500 text-3xl font-bold mb-4">Color Rush</h1>
+
+              <h2
+                class="text-blue-500 text-2xl border-b-2 border-blue-500 pb-2 mb-6"
+              >
+                1. Getting Started
+              </h2>
+
+              <h3 class="text-blue-500 text-xl mb-2">Creating a Lobby</h3>
+              <ul class="list-none mb-4">
+                <li>
+                  Open the Colorrush application and navigate to the main menu.
+                </li>
+                <li>Click on "Create Lobby."</li>
+                <li>
+                  Choose your preferred <strong>board size</strong>, set the
+                  <strong>time limit</strong>, and select the
+                  <strong>colors for each player</strong>.
+                </li>
+                <li>
+                  Don't forget to name your lobby for easy identification.
+                </li>
+              </ul>
+
+              <h3 class="text-blue-500 text-xl mb-2">
+                Customizing Game Settings
+              </h3>
+              <ul class="list-none mb-4">
+                <li>
+                  <strong>Board Size:</strong> Determine the size of the game
+                  board. A larger board offers more opportunities but can be
+                  more challenging.
+                </li>
+                <li>
+                  <strong>Time Limit:</strong> Set the duration for each round.
+                  Quick rounds add excitement, while longer rounds allow for
+                  strategic gameplay.
+                </li>
+                <li>
+                  <strong>Player Colors:</strong> Pick unique colors for each
+                  player to make the game visually appealing and easily
+                  distinguishable.
+                </li>
+              </ul>
+
+              <h3 class="text-blue-500 text-xl mb-2">Inviting Friends</h3>
+              <ul class="list-none mb-4">
+                <li>Generate an invite link with a custom code.</li>
+                <li>
+                  Share the link with your friends through messaging apps,
+                  social media, or any convenient means.
+                </li>
+                <li>
+                  Friends simply need to enter the invite link in the menu to
+                  join your lobby.
+                </li>
+              </ul>
+
+              <h2
+                class="text-blue-500 text-2xl border-b-2 border-blue-500 pb-2 mb-6"
+              >
+                2. Gameplay Mechanics
+              </h2>
+
+              <h3 class="text-blue-500 text-xl mb-2">Field Clicking</h3>
+              <ul class="list-none mb-4">
+                <li>
+                  The game board will be filled with fields, each representing a
+                  unique color.
+                </li>
+                <li>Click on a field to claim it for your color.</li>
+                <li>
+                  Be strategic – plan your moves to secure more colored fields
+                  than your friend.
+                </li>
+              </ul>
+
+              <h3 class="text-blue-500 text-xl mb-2">Scoring</h3>
+              <ul class="list-none mb-4">
+                <li>Earn points for each field you claim.</li>
+                <li>
+                  The player with the most colored fields at the end of the
+                  round wins.
+                </li>
+              </ul>
+
+              <h2
+                class="text-blue-500 text-2xl border-b-2 border-blue-500 pb-2 mb-6"
+              >
+                3. Tips for Success
+              </h2>
+              <ul class="list-none mb-4">
+                <li>
+                  <strong>Strategic Clicking:</strong> Plan your clicks to
+                  maximize your colored field count.
+                </li>
+                <li>
+                  <strong>Time Management:</strong> Keep an eye on the clock;
+                  efficient gameplay is key.
+                </li>
+                <li>
+                  <strong>Color Coordination:</strong> Choose player colors
+                  wisely for easy identification on the board.
+                </li>
+              </ul>
+
+              <h2
+                class="text-blue-500 text-2xl border-b-2 border-blue-500 pb-2 mb-6"
+              >
+                4. FAQs
+              </h2>
+              <ul class="list-none mb-4">
+                <li><strong>Q:</strong> Can I customize the invite link?</li>
+                <li>
+                  <strong>A:</strong> Yes, the invite link can be personalized
+                  with any code you prefer.
+                </li>
+
+                <li><strong>Q:</strong> How long does a typical game last?</li>
+                <li>
+                  <strong>A:</strong> The duration depends on the time limit set
+                  during lobby creation. Adjust it to suit your preferences.
+                </li>
+
+                <li>
+                  <strong>Q:</strong> Can I change my player color during the
+                  game?
+                </li>
+                <li>
+                  <strong>A:</strong> No, player colors are fixed when the lobby
+                  is created for fair gameplay.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- GERMAN TUTORIAL-->
+          <div class="w-full h-[400px]" id="german" style="display: none">
+            <div
+              class="flex flex-col justify-start items-center gap-5 w-full h-full scroll text-center"
+            >
+              <h1 class="text-blue-500 text-3xl font-bold mb-4">Color Rush</h1>
+
+              <h2
+                class="text-blue-500 text-2xl border-b-2 border-blue-500 pb-2 mb-6"
+              >
+                1. Erste Schritte
+              </h2>
+
+              <h3 class="text-blue-500 text-xl mb-2">Lobby erstellen</h3>
+              <ul class="list-none mb-4">
+                <li>
+                  Öffne die Colorrush-Anwendung und navigiere zum Hauptmenü.
+                </li>
+                <li>Klicke auf "Lobby erstellen".</li>
+                <li>
+                  Wähle deine bevorzugte <strong>Spielfeldgröße</strong>, setze
+                  das <strong>Zeitlimit</strong> und wähle die
+                  <strong>Farben für jeden Spieler</strong>.
+                </li>
+                <li>
+                  Vergiss nicht, deine Lobby zu benennen, um sie leicht zu
+                  identifizieren.
+                </li>
+              </ul>
+
+              <h3 class="text-blue-500 text-xl mb-2">
+                Anpassung der Spieleinstellungen
+              </h3>
+              <ul class="list-none mb-4">
+                <li>
+                  <strong>Spielfeldgröße:</strong> Bestimme die Größe des
+                  Spielfelds. Ein größeres Spielfeld bietet mehr Möglichkeiten,
+                  kann jedoch herausfordernder sein.
+                </li>
+                <li>
+                  <strong>Zeitlimit:</strong> Setze die Dauer für jede Runde.
+                  Schnelle Runden sorgen für Spannung, während längere Runden
+                  strategisches Gameplay ermöglichen.
+                </li>
+                <li>
+                  <strong>Spielerfarben:</strong> Wähle einzigartige Farben für
+                  jeden Spieler, um das Spiel visuell ansprechend und leicht
+                  unterscheidbar zu gestalten.
+                </li>
+              </ul>
+
+              <h3 class="text-blue-500 text-xl mb-2">Freunde einladen</h3>
+              <ul class="list-none mb-4">
+                <li>
+                  Generiere einen Einladungslink mit einem individuellen Code.
+                </li>
+                <li>
+                  Teile den Link mit deinen Freunden über Messaging-Apps,
+                  soziale Medien oder auf bequeme Weise.
+                </li>
+                <li>
+                  Freunde müssen einfach den Einladungslink im Menü eingeben, um
+                  deiner Lobby beizutreten.
+                </li>
+              </ul>
+
+              <h2
+                class="text-blue-500 text-2xl border-b-2 border-blue-500 pb-2 mb-6"
+              >
+                2. Spielmechanik
+              </h2>
+
+              <h3 class="text-blue-500 text-xl mb-2">Feldklicks</h3>
+              <ul class="list-none mb-4">
+                <li>
+                  Das Spielfeld wird mit Feldern gefüllt, die jeweils eine
+                  einzigartige Farbe repräsentieren.
+                </li>
+                <li>
+                  Klicke auf ein Feld, um es für deine Farbe zu beanspruchen.
+                </li>
+                <li>
+                  Sei strategisch – plane deine Züge, um mehr farbige Felder als
+                  dein Freund zu sichern.
+                </li>
+              </ul>
+
+              <h3 class="text-blue-500 text-xl mb-2">Punktevergabe</h3>
+              <ul class="list-none mb-4">
+                <li>Verdiene Punkte für jedes Feld, das du beanspruchst.</li>
+                <li>
+                  Der Spieler mit den meisten farbigen Feldern am Ende der Runde
+                  gewinnt.
+                </li>
+              </ul>
+
+              <h2
+                class="text-blue-500 text-2xl border-b-2 border-blue-500 pb-2 mb-6"
+              >
+                3. Tipps für Erfolg
+              </h2>
+              <ul class="list-none mb-4">
+                <li>
+                  <strong>Strategisches Klicken:</strong> Plane deine Klicks, um
+                  die Anzahl deiner farbigen Felder zu maximieren.
+                </li>
+                <li>
+                  <strong>Zeitmanagement:</strong> Achte auf die Uhr;
+                  effizientes Gameplay ist entscheidend.
+                </li>
+                <li>
+                  <strong>Farbkoordination:</strong> Wähle Spielerfarben klug
+                  für eine einfache Identifikation auf dem Spielfeld.
+                </li>
+              </ul>
+
+              <h2
+                class="text-blue-500 text-2xl border-b-2 border-blue-500 pb-2 mb-6"
+              >
+                4. FAQs
+              </h2>
+              <ul class="list-none mb-4">
+                <li>
+                  <strong>F:</strong> Kann ich den Einladungslink anpassen?
+                </li>
+                <li>
+                  <strong>A:</strong> Ja, der Einladungslink kann mit einem
+                  individuellen Code personalisiert werden.
+                </li>
+
+                <li>
+                  <strong>F:</strong> Wie lange dauert ein typisches Spiel?
+                </li>
+                <li>
+                  <strong>A:</strong> Die Dauer hängt von der beim Erstellen der
+                  Lobby festgelegten Zeitbegrenzung ab. Passe sie nach deinen
+                  Vorlieben an.
+                </li>
+
+                <li>
+                  <strong>F:</strong> Kann ich die Spielerfarbe während des
+                  Spiels ändern?
+                </li>
+                <li>
+                  <strong>A:</strong> Nein, Spielerfarben sind beim Erstellen
+                  der Lobby für faires Gameplay festgelegt.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          id="lobby"
+          class="flex flex-col justify-center items-center h-[500px] gap-2"
+          style="display: none"
+        >
+          <span id="waiting" class="text-xl">Waiting for another player</span>
+          <span id="players">(0/2)</span>
+          <div class="flex gap-5" id="invLinkCopy" style="display: none">
+            <input
+              type="text"
+              id="inviteLink"
+              placeholder="Invite link"
+              readonly
+              onclick="this.select();"
+              class="bg-black border border-[#222] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 max-w-[400px] w-[400px]"
+            />
+            <button
+              class="bg-black hover:bg-black/70 transition-all duration-300 outline-none rounded-lg p-3 flex justify-center items-center"
+              id="copyId"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="22"
+                width="20"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </div>
+          <span
+            id="startingText"
+            class="text-2xl font-semibold"
+            style="display: none"
+          >
+            Starting in 3
+          </span>
+        </div>
+      </div>
+      <!--
+        
+      <div
+        class="bg-black/50 flex justify-center items-center absolute top-0 left-0 w-full h-screen"
+        id="login"
+        style="display: none"
+      >
+        <div
+          class="p-10 bg-black rounded-xl flex flex-col items-center justify-center gap-5"
+        >
+          <h1>Login</h1>
+          <hr class="w-full" />
+          <form
+            id="loginForm"
+            class="flex flex-col items-center justify-center gap-5"
+          >
+            <div class="flex flex-col gap-1">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Username"
+                class="bg-primary border border-[#222] min-w-[250px] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 w-28"
+              />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                class="bg-primary border border-[#222] min-w-[250px] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 w-28"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg-primary hover:bg-primary/80 rounded-lg p-2 px-5 transition-all duration-300 outline-none"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+      <div
+        class="bg-black/50 flex justify-center items-center absolute top-0 left-0 w-full h-screen"
+        id="register"
+        style="display: none"
+      >
+        <div class="p-10 bg-black rounded-xl flex flex-col gap-4">
+          <h1>Register</h1>
+          <hr class="w-full" />
+          <form
+            id="registerForm"
+            class="flex flex-col items-center justify-center gap-5"
+          >
+            <div class="flex flex-col gap-1">
+              <label for="username2">Username</label>
+              <input
+                type="text"
+                id="username2"
+                name="username"
+                placeholder="Username"
+                class="bg-primary border border-[#222] min-w-[250px] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 w-28"
+              />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label for="password2">Password</label>
+              <input
+                type="password"
+                id="password2"
+                name="password"
+                placeholder="Password"
+                class="bg-primary border border-[#222] min-w-[250px] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 w-28"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg-primary hover:bg-primary/80 rounded-lg p-2 px-5 transition-all duration-300 outline-none"
+            >
+              Create
+            </button>
+          </form>
+        </div>
+      </div>
+      -->
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

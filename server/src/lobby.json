@@ -1,0 +1,19 @@
+{
+  "id": "invLink...",
+  "players": {
+    "Player 1": {
+      "color": "#000",
+      "score": 42
+    },
+    "Player 2": {
+      "color": "#fff",
+      "score": 12
+    }
+  },
+  "minutes": 2,
+  "fields": [
+    {
+      "1": "#000"
+    }
+  ]
+}
